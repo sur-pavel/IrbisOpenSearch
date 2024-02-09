@@ -5,16 +5,16 @@ namespace IrbisOpenSearch
 {
     internal class SearchRecord
     {
-        [Keyword]
+        [Text(Name = "id")]
         public string Id { get; set; }
 
-        [Text(Name = "full_description", Analyzer = "multilang_analyzer", Boost = 1)]
+        [Text(Name = "Полное описание", Analyzer = "ru_en_analyzer", Boost = 1)]
         public string FullDescription { get; set; }
 
-        [Text(Name = "author", Analyzer = "multilang_analyzer", Boost = 3)]
+        [Text(Name = "Автор", Analyzer = "ru_en_analyzer", Boost = 3)]
         public string Authors { get; set; }
 
-        [Text(Name = "title", Analyzer = "multilang_analyzer", Boost = 4)]
+        [Text(Name = "Заглавие", Analyzer = "ru_en_analyzer", Boost = 4)]
         public string Title { get; set; }
 
         [Object]
@@ -22,6 +22,9 @@ namespace IrbisOpenSearch
 
         [Keyword(Name = "raw_record")]
         public string RawRecord { get; set; }
+
+        [Keyword(Name = "База данных")]
+        public string DbName { get; set; }
 
         [Number(NumberType.Integer, DocValues = true, IgnoreMalformed = true, Coerce = true, Name = "mfn")]
         public int MFN { get; set; }
@@ -32,63 +35,66 @@ namespace IrbisOpenSearch
         [Object]
         public InventoryNumber[] InvNums { get; set; }
 
-        [Text(Name = "key_words", Analyzer = "multilang_analyzer")]
+        [Text(Name = "Ключевые слова", Analyzer = "ru_en_analyzer")]
         public string[] KeyWords { get; set; }
 
-        [Keyword(Name = "docChars")]
+        [Keyword(Name = "Характер документа")]
         public string[] DocumentCharacters { get; set; }
 
-        [Keyword(Name = "docType")]
+        [Keyword(Name = "Тип документа")]
         public string DocType { get; set; }
 
-        [Keyword(Name = "docKind")]
+        [Keyword(Name = "Вид документа")]
         public string DocKind { get; set; }
 
         [Object]
         public Cataloguer[] CataloguersData { get; set; }
 
-        [Text(Name = "annotation", Analyzer = "multilang_analyzer")]
+        [Text(Name = "Аннотация", Analyzer = "ru_en_analyzer")]
         public string Annotation { get; set; }
 
-        [Text(Name = "contents", Analyzer = "multilang_analyzer")]
+        [Text(Name = "Оглавление", Analyzer = "ru_en_analyzer")]
         public string[] Contents { get; set; }
+
+        [Text(Name = "Рубрики", Analyzer = "ru_en_analyzer")]
+        public string[] Rubric { get; set; }
 
         public class InventoryNumber
         {
-            [Date(Format = "yyyyMMdd")]
+            [Date(Format = "yyyyMMdd", Name = "Дата поступления")]
             public string Date { get; set; }
 
-            [Number(NumberType.Integer, DocValues = true, IgnoreMalformed = true, Coerce = true)]
+            [Number(NumberType.Integer, Name = "Инв. номер", DocValues = true, IgnoreMalformed = true, Coerce = true)]
             public string Number { get; set; }
 
-            [Keyword(Name = "ksu")]
+            [Keyword(Name = "КСУ")]
             public string KSU { get; set; }
 
-            [Text(Name = "arrival_channel", Analyzer = "multilang_analyzer")]
+            [Text(Name = "Канал поступления", Analyzer = "ru_en_analyzer")]
             public string Channel { get; set; }
         }
 
         public class Cataloguer
         {
-            [Date(Format = "yyyyMMdd")]
+            [Date(Format = "yyyyMMdd", Name = "Дата работы")]
             public string Date { get; set; }
 
-            [Keyword]
+            [Keyword(Name = "ФИО")]
             public string Initials { get; set; }
 
-            [Keyword(Name = "stage_of_work")]
+            [Keyword(Name = "Этап работы")]
             public string StageOfWork { get; set; }
         }
 
         public class Imprint
         {
-            [Text(Name = "location", Analyzer = "multilang_analyzer", Boost = 2)]
+            [Text(Name = "Место издания", Analyzer = "ru_en_analyzer", Boost = 2)]
             public string Location { get; set; }
 
-            [Text(Name = "publisher", Analyzer = "multilang_analyzer", Boost = 2)]
+            [Text(Name = "Издательство", Analyzer = "ru_en_analyzer", Boost = 2)]
             public string Publisher { get; set; }
 
-            [Date(IgnoreMalformed = true, Format = "yyyy", Boost = 3)]
+            [Date(Name = "Год издания", IgnoreMalformed = true, Format = "yyyy", Boost = 3)]
             public string Year { get; set; }
         }
     }
